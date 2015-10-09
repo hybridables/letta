@@ -1,0 +1,29 @@
+{
+  "name": "letta",
+  "version": "0.0.0",
+  "description": "Let's move to promises! Drop-in replacement for `co@4`, but on steroids. Accepts sync, async and generator functions.",
+  "repository": "hybridables/letta",
+  "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "standard && node test.js"
+  },
+  "dependencies": {
+    "co": "^4.6.0",
+    "is-es6-generator-function": "^1.0.0",
+    "native-or-another": "^3.0.1",
+    "redolent": "^1.0.3",
+    "sliced": "^1.0.1"
+  },
+  "devDependencies": {
+    "assertit": "^0.1.0",
+    "mz": "^2.0.0",
+    "semver": "^5.0.3",
+    "simple-get": "^1.4.3"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": []
+}
