@@ -15,7 +15,30 @@ npm i letta --save
 > For more use-cases see the [tests](./test.js)
 
 ```js
-var letta = require('letta')
+const fs = require('fs')
+const letta = require('letta')
+
+letta(fs.readFile, 'package.json', 'utf8')
+.then(JSON.parse)
+.then(data => {
+  console.log(data.name) //=> 'letta'
+})
+```
+
+## Generators
+> Accept generator functions same as `co` and acts like `co`.
+
+```js
+const fs = require('fs')
+const letta = require('letta')
+
+letta(function * (fp) {
+  return yield letta(fs.readFile, fp, 'utf8')
+}, 'package.json')
+.then(JSON.parse)
+.then(data => {
+  console.log(data.name) //=> 'letta'
+})
 ```
 
 
