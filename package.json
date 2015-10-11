@@ -25,5 +25,26 @@
   "files": [
     "index.js"
   ],
-  "keywords": []
+  "keywords": [
+    "async",
+    "callback",
+    "control",
+    "coro",
+    "coroutine",
+    "coroutines",
+    "flow",
+    "fn",
+    "func",
+    "function",
+    "gen",
+    "generator",
+    "generators",
+    "gens",
+    "promise",
+    "promises",
+    "sync",
+    "thunks",
+    "yield",
+    "yieldables"
+  ]
 }
