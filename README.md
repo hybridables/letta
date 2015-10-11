@@ -1,6 +1,6 @@
 # [letta][author-www-url] [![npmjs.com][npmjs-img]][npmjs-url] [![The MIT License][license-img]][license-url] 
 
-> Let's move to promises! Drop-in replacement for `co@4`, but on steroids. Accepts sync, async and generator functions.
+> Let's move to promises! Drop-in replacement for [`co@4`](https://github.com/tj/co), but on steroids. Accepts sync, async and generator functions. Passing all [`co@4` tests](./test/co).
 
 [![code climate][codeclimate-img]][codeclimate-url] [![standard code style][standard-img]][standard-url] [![travis build status][travis-img]][travis-url] [![coverage status][coveralls-img]][coveralls-url] [![dependency status][david-img]][david-url]
 
@@ -34,7 +34,7 @@ io.js is supported out of the box, you can use `letta` without flags or polyfill
 
 
 ## API
-> For more use-cases see the [tests](./test.js)
+> For more use-cases see the [tests](./test.js), [examples](./examples) or all passing [`co@4` tests](./test/co)
 
 ```js
 const letta = require('letta')
