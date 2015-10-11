@@ -11,10 +11,31 @@ var sliced = require('sliced')
 var isGenFn = require('is-es6-generator-function')
 var getPromise = require('native-or-another')
 
-var letta = module.exports = function letta (fn) {
-  var Promize = getPromise(letta.promise)
-  var args = sliced(arguments, 1)
+/**
+ * Control flow now and then.
+ *
+ * **Example**
+ *
+ * ```js
+ * const letta = require('letta')
+ *
+ * letta((foo, bar, baz) => {
+ *   console.log(foo, bar, baz) //=> 'foo, bar, baz'
+ *   return foo
+ * }, 'foo', 'bar', 'baz')
+ * .then(console.log) //=> 'foo'
+ * ```
+ *
+ * @name   letta
+ * @param  {Function} `<fn>` also generator function
+ * @param  {Mixed}    `[args]`any number of arguments, that will be passed to `fn`
+ * @return {Promise}
+ * @api public
+ */
+var letta = module.exports = function letta (fn, args) {
   var self = this
+  var Promize = getPromise(letta.promise)
+  args = sliced(arguments, 1)
 
   return new Promize(function (resolve, reject) {
     process.once('uncaughtException', reject)
@@ -31,9 +52,7 @@ var letta = module.exports = function letta (fn) {
 }
 
 // just for 100% `co@4` comaptibility
-// not needed really, because `letta` accept
-// everything, on the fly, by default
-letta.wrap = function voaWrap (val) {
+letta.wrap = function lettaWrap (val) {
   function createPromise () {
     var args = sliced(arguments)
     return letta.apply(this, [val].concat(args))
