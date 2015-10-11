@@ -29,6 +29,16 @@ letta(fs.readFile, filepath, 'utf-8').then(function (data) {
 }, console.error)
 
 /**
+ * fs.readFileSync reading buffer
+ * shows correct handling of optional arguments
+ * for core modules like `fs`
+ */
+
+letta(fs.readFileSync, filepath).then(function (buf) {
+  console.log(buf) // => buffer
+}, console.error)
+
+/**
  * fs.stat
  */
 

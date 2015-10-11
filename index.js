@@ -37,7 +37,7 @@ var letta = module.exports = function letta (fn, args) {
   var Promize = getPromise(letta.promise)
   args = sliced(arguments, 1)
 
-  return new Promize(function (resolve, reject) {
+  var promise = new Promize(function (resolve, reject) {
     process.once('uncaughtException', reject)
     process.once('unhandledRejection', reject)
     process.on('newListener', function (name) {
@@ -49,6 +49,8 @@ var letta = module.exports = function letta (fn, args) {
     }
     require('redolent')(fn).apply(self, args).then(resolve, reject)
   })
+
+  return normalizePromise(promise, Promize)
 }
 
 /**
@@ -79,4 +81,15 @@ letta.wrap = function lettaWrap (fn) {
   }
   createPromise.__generatorFunction__ = fn
   return createPromise
+}
+
+/**
+ * Inherit and normalize properties
+ */
+
+function normalizePromise (promise, Ctor) {
+  promise.Prome = Ctor
+  promise.___customPromise = Ctor.___customPromise
+  promise.___bluebirdPromise = Ctor.___bluebirdPromise
+  return promise
 }

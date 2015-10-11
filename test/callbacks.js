@@ -86,3 +86,17 @@ test('should handle buffer result from `fs.readFile` passed directly', function 
     done()
   }, done)
 })
+
+test('should returned promise can acces used Promise constructor', function (done) {
+  letta.promise = require('pinkie')
+  var promise = letta(fs.readFile, 'package.json', 'utf8')
+
+  promise.then(JSON.parse).then(function (data) {
+    test.strictEqual(data.name, 'letta')
+
+    // Pinkie Constructor if node >= 0.11.12,
+    // otherwise native Promise constructor
+    test.strictEqual(typeof promise.Prome, 'function')
+    done()
+  }, done)
+})

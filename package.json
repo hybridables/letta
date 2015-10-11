@@ -19,6 +19,7 @@
   "devDependencies": {
     "assertit": "^0.1.0",
     "mz": "^2.0.0",
+    "pinkie": "^1.0.0",
     "semver": "^5.0.3",
     "simple-get": "^1.4.3"
   },
