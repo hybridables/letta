@@ -12,7 +12,7 @@ var isGenFn = require('is-es6-generator-function')
 var getPromise = require('native-or-another')
 
 /**
- * Control flow now and then.
+ * > Control flow now and then.
  *
  * **Example**
  *
@@ -51,12 +51,32 @@ var letta = module.exports = function letta (fn, args) {
   })
 }
 
-// just for 100% `co@4` comaptibility
-letta.wrap = function lettaWrap (val) {
+/**
+ * > Convert a generator into a regular function that returns a `Promise`.
+ *
+ * **Example**
+ *
+ * ```js
+ * const letta = require('letta')
+ * const fn = letta.wrap(function * (val) {
+ *   return yield Promise.resolve(val)
+ * })
+ *
+ * fn(123).then(function (val) {
+ *   console.log(val) // => 123
+ * }, console.error)
+ * ```
+ *
+ * @name   .wrap
+ * @param  {Function} `<fn>` also generator function
+ * @return {Function} normal function
+ * @api public
+ */
+letta.wrap = function lettaWrap (fn) {
   function createPromise () {
     var args = sliced(arguments)
-    return letta.apply(this, [val].concat(args))
+    return letta.apply(this, [fn].concat(args))
   }
-  createPromise.__generatorFunction__ = val
+  createPromise.__generatorFunction__ = fn
   return createPromise
 }

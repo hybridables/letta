@@ -11,7 +11,29 @@ npm i letta --save
 ```
 
 
-## Usage
+## Features
+> Accept everything from sync function to generator functions.
+
+- sync functions
+- async (callback) functions
+- generators and generator functions
+- accept and works with javascript internal functions like `JSON.stringify` and `JSON.parse`
+- graceful handling of errors, uncaught exceptions, rejections and optional arguments
+
+
+## Platform Compatibility
+`letta` does not requires a `Promise` implementation. By default always-first use native promise if available on the enviroment, otherwise `Bluebird` or you can pass custom promise module, for example `pinkie`, `q` or `promise`.
+
+When using node 0.11.x or greater, you must use the `--harmony-generators`
+flag or just `--harmony` to get access to generators, but remember only if you thinking to pass generators to `letta`, othewise all works out of the box.
+
+When using node 0.10.x and lower or browsers without generator support,
+you must use [gnode](https://github.com/TooTallNate/gnode) and/or [regenerator](http://facebook.github.io/regenerator/).
+
+io.js is supported out of the box, you can use `letta` without flags or polyfills.
+
+
+## API
 > For more use-cases see the [tests](./test.js)
 
 ```js
@@ -31,11 +53,67 @@ const letta = require('letta')
 const letta = require('letta')
 
 letta((foo, bar, baz) => {
-  console.log(foo, bar, baz) //=> 'foo, bar, baz'
+  console.log(foo, bar, baz) // => 'foo, bar, baz'
   return foo
 }, 'foo', 'bar', 'baz')
-.then(console.log) //=> 'foo'
+.then(console.log) // => 'foo'
 ```
+
+### [.wrap](./index.js#L75)
+> Convert a generator into a regular function that returns a `Promise`.
+
+- `<fn>` **{Function}** also generator function
+- `return` **{Function}** normal function
+
+**Example**
+
+```js
+const letta = require('letta')
+const fn = letta.wrap(function * (val) {
+  return yield Promise.resolve(val)
+})
+
+fn(123).then(function (val) {
+  console.log(val) // => 123
+}, console.error)
+```
+
+### [.promise](./index.js#L37)
+> Passing custom promise module to be used (also require) only when enviroment don't have support for native `Promise`. For example, you can pass `q` to be used when node `0.10`.
+
+**Example**
+
+```js
+const letta = require('letta')
+
+// passing `q` promise module to be used
+// when is node `0.10` enviroment
+letta.promise = require('q')
+
+const promise = letta(fs.readFile, 'package.json', 'utf8')
+
+promise.then(JSON.parse).then(data => {
+  console.log(data.name) // => 'letta'
+  console.log(promise.Prome) // => `q` promise constructor
+
+  // shows that custom promise module is used
+  console.log(promise.___customPromise)// => true
+
+  // shows that Blubird promise is not used in this case
+  console.log(promise.___bluebirdPromise)// => undefined
+})
+```
+
+## Examples
+> Few working examples with what can be passed and how `letta` acts.
+
+- Callbacks
+- Generators
+- JSON.stringify
+- Sync functions
+- Exceptions and rejections
+- Errors
+- Last argument function
 
 ### Callbacks
 > Can accept asynchronous (callback) functions as well.
@@ -49,13 +127,13 @@ const letta = require('letta')
 letta(fs.readFile, 'package.json', 'utf8')
 .then(JSON.parse)
 .then(data => {
-  console.log(data.name) //=> 'letta'
+  console.log(data.name) // => 'letta'
 }, console.error)
 
 // callback `fs.stat` function
 letta(fs.stat, 'package.json')
 .then(stats => {
-  console.log(stats.isFile()) //=> true
+  console.log(stats.isFile()) // => true
 }, console.error)
 ```
 
@@ -73,7 +151,7 @@ letta(function * (fp) {
 }, 'package.json')
 .then(JSON.parse)
 .then(data => {
-  console.log(data.name) //=> 'letta'
+  console.log(data.name) // => 'letta'
 }, console.error)
 ```
 
@@ -85,7 +163,7 @@ const letta = require('letta')
 
 letta(JSON.stringify, {foo: 'bar'})
 .then(data => {
-  console.log(data) //=> {"foo":"bar"}
+  console.log(data) // => {"foo":"bar"}
 }, console.error)
 
 // result with identation
@@ -109,13 +187,13 @@ const letta = require('letta')
 // sync function
 letta(fs.statSync, 'package.json')
 .then(stats => {
-  console.log(stats.isFile()) //=> true
+  console.log(stats.isFile()) // => true
 }, console.error)
 
 // correct handling of optional arguments
 letta(fs.readFileSync, 'package.json')
 .then(buf => {
-  console.log(Buffer.isBuffer(buf)) //=> true
+  console.log(Buffer.isBuffer(buf)) // => true
 }, console.error)
 ```
 
@@ -130,7 +208,7 @@ const letta = require('letta')
 
 letta(fs.readFile, 'foobar.json')
 .then(console.log, err => {
-  console.error(err.code) //=> 'ENOENT'
+  console.error(err.code) // => 'ENOENT'
 })
 
 // handles ReferenceError,
@@ -139,7 +217,7 @@ letta(function () {
   foo
   return true
 })
-.catch(console.error) //=> 'ReferenceError: foo is not defined'
+.catch(console.error) // => 'ReferenceError: foo is not defined'
 ```
 
 ### Errors
@@ -154,7 +232,7 @@ letta(function () {
   return new Error('foo err bar')
 })
 .catch(err => {
-  console.log(err.message) //=> 'foo err bar'
+  console.log(err.message) // => 'foo err bar'
 })
 ```
 
@@ -170,7 +248,7 @@ letta(function (foo) {
   return foo
 })
 .then(console.log, err => {
-  console.log(err.message) //=> 'foo err bar'
+  console.log(err.message) // => 'foo err bar'
 })
 ```
 
@@ -193,8 +271,63 @@ letta((str, num, obj, fn) => {
   assert.strictEqual(typeof fn, 'function')
   return true
 }, 'foo', 123, {a: 'b'}, function () {})
-.then(console.log) //=> true
+.then(console.log) // => true
 ```
+
+## Yieldables
+> The `yieldable` objects currently supported are:
+
+- promises
+- thunks (functions)
+- array (parallel execution)
+- objects (parallel execution)
+- generators (delegation)
+- generator functions (delegation)
+
+Nested `yieldable` objects are supported, meaning you can nest
+promises within objects within arrays, and so on!
+
+### Promises
+[Read more on promises!](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+
+### Thunks
+Thunks are functions that only have a single argument, a callback.
+Thunk support only remains for backwards compatibility.
+
+### Arrays
+`yield`ing an array will resolve all the `yieldables` in parallel.
+
+```js
+letta(function * () {
+  var res = yield [
+    Promise.resolve(1),
+    Promise.resolve(2),
+    Promise.resolve(3),
+  ]
+  console.log(res) // => [1, 2, 3]
+})
+.catch(console.error)
+```
+
+### Objects
+Just like arrays, objects resolve all `yieldable`s in parallel.
+
+```js
+letta(function* () {
+  var res = yield {
+    1: Promise.resolve(1),
+    2: Promise.resolve(2),
+  }
+  console.log(res) // => { 1: 1, 2: 2 }
+})
+.catch(console.error)
+```
+
+### Generators and Generator Functions
+Any generator or generator function you can pass into `letta`
+can be yielded as well. This should generally be avoided
+as we should be moving towards spec-compliant `Promise`s instead.
+
 
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/hybridables/letta/issues/new).  
