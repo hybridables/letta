@@ -12,6 +12,7 @@
   "dependencies": {
     "co": "^4.6.0",
     "is-es6-generator-function": "^1.0.0",
+    "lazy-cache": "^0.2.3",
     "native-or-another": "^3.0.1",
     "redolent": "^1.0.3",
     "sliced": "^1.0.1"

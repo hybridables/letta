@@ -7,9 +7,7 @@
 
 'use strict'
 
-var sliced = require('sliced')
-var isGenFn = require('is-es6-generator-function')
-var getPromise = require('native-or-another')
+var utils = require('./utils')
 
 /**
  * > Control flow now and then.
@@ -34,8 +32,8 @@ var getPromise = require('native-or-another')
  */
 var letta = module.exports = function letta (fn, args) {
   var self = this
-  var Promize = getPromise(letta.promise)
-  args = sliced(arguments, 1)
+  var Promize = utils.nativeOrAnother(letta.promise)
+  args = utils.sliced(arguments, 1)
 
   var promise = new Promize(function (resolve, reject) {
     process.once('uncaughtException', reject)
@@ -43,11 +41,11 @@ var letta = module.exports = function letta (fn, args) {
     process.on('newListener', function (name) {
       this.removeAllListeners(name)
     })
-    if (isGenFn(fn)) {
-      require('co').apply(self, [fn].concat(args)).then(resolve, reject)
+    if (utils.isGenFn(fn)) {
+      utils.co.apply(self, [fn].concat(args)).then(resolve, reject)
       return
     }
-    require('redolent')(fn).apply(self, args).then(resolve, reject)
+    utils.redolent(fn).apply(self, args).then(resolve, reject)
   })
 
   return normalizePromise(promise, Promize)
@@ -76,7 +74,7 @@ var letta = module.exports = function letta (fn, args) {
  */
 letta.wrap = function lettaWrap (fn) {
   function createPromise () {
-    var args = sliced(arguments)
+    var args = utils.sliced(arguments)
     return letta.apply(this, [fn].concat(args))
   }
   createPromise.__generatorFunction__ = fn
