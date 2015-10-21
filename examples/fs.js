@@ -35,7 +35,7 @@ letta(fs.readFile, filepath, 'utf-8').then(function (data) {
  */
 
 letta(fs.readFileSync, filepath).then(function (buf) {
-  console.log(buf) // => buffer
+  console.log(buf) // => '<Buffer 7b 0a 20 ...>'
 }, console.error)
 
 /**

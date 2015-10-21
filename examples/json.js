@@ -36,3 +36,11 @@ letta(JSON.stringify, {foo: 'bar'}, null, 2).then(function (data) {
 letta(JSON.parse, '{"foo":"bar"}').then(function (data) {
   console.log(data.foo) // => 'bar'
 }, console.error)
+
+/**
+ * JSON.parse failing
+ */
+
+letta(JSON.parse, {a: 'b'}).catch(function (err) {
+  console.log(err) // => [SyntaxError: Unexpected token o]
+})
