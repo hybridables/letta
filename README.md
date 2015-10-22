@@ -221,7 +221,7 @@ letta(function () {
 ```
 
 ### Errors
-> You should **notice** that if some function **returns** instance of `Error` it will acts like error is thrown from that function.
+> You should **notice** that if some function **returns** instance of `Error` it will acts as usual - receive it in `.then` not in `.catch`. Review the `examples/errors.js` example.
 
 **Example**
 
@@ -231,24 +231,9 @@ const letta = require('letta')
 letta(function () {
   return new Error('foo err bar')
 })
-.catch(err => {
-  console.log(err.message) // => 'foo err bar'
-})
-```
-
-So above is same as if you throw some error as you normally will do.
-
-```js
-const letta = require('letta')
-
-letta(function (foo) {
-  if (!foo) {
-    throw new Error('foo err bar')
-  }
-  return foo
-})
-.then(console.log, err => {
-  console.log(err.message) // => 'foo err bar'
+.then(res => {
+  console.log(res instanceof Error) // => true
+  console.log(res.message) // => 'foo err bar'
 })
 ```
 
@@ -313,7 +298,7 @@ letta(function * () {
 Just like arrays, objects resolve all `yieldable`s in parallel.
 
 ```js
-letta(function* () {
+letta(function * () {
   var res = yield {
     1: Promise.resolve(1),
     2: Promise.resolve(2),
