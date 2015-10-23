@@ -1,6 +1,6 @@
 {
   "name": "letta",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Let's move to promises! Drop-in replacement for `co@4`, but on steroids. Accepts sync, async and generator functions.",
   "repository": "hybridables/letta",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
