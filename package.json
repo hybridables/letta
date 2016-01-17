@@ -1,7 +1,7 @@
 {
   "name": "letta",
   "version": "0.3.1",
-  "description": "Let's move to promises! Drop-in replacement for `co@4`, but on steroids. Accepts sync, async and generator functions.",
+  "description": "Let's move to promises! Drop-in replacement for `co@4`, but on steroids. Accepts everything from sync, async and generator functions to string, array, stream, number and so on. Built with `redolent`/`relike`/relike-all` - see them for more information.",
   "repository": "hybridables/letta",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
   "main": "index.js",

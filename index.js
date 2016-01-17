@@ -25,8 +25,8 @@ var utils = require('./utils')
  * ```
  *
  * @name   letta
- * @param  {Function} `<fn>` also generator function
- * @param  {Mixed}    `[args]`any number of arguments, that will be passed to `fn`
+ * @param  {Mixed} `[val]` also generator function
+ * @param  {Mixed} `[args..]` any number of any type of arguments, if `val` function they are passed to it
  * @return {Promise}
  * @api public
  */
