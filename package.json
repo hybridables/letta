@@ -12,7 +12,7 @@
   "dependencies": {
     "co": "^4.6.0",
     "is-es6-generator-function": "^1.0.0",
-    "lazy-cache": "^0.2.3",
+    "lazy-cache": "^1.0.3",
     "native-or-another": "^3.0.1",
     "redolent": "^1.0.3",
     "sliced": "^1.0.1"
@@ -20,7 +20,7 @@
   "devDependencies": {
     "assertit": "^0.1.0",
     "mz": "^2.0.0",
-    "pinkie": "^1.0.0",
+    "pinkie": "^2.0.1",
     "semver": "^5.0.3",
     "simple-get": "^1.4.3"
   },
