@@ -4,8 +4,8 @@ sudo: false
 node_js:
   - "0.10"
   - "0.12"
-  - "4.2"
   - "4"
+  - "5"
 
 notifications:
   email:
@@ -17,7 +17,7 @@ before_script:
   - standard
 
 script:
-  - npm install istanbul-harmony
+  - npm install istanbul
   - node --harmony node_modules/.bin/istanbul cover test.js
 
 after_success:
