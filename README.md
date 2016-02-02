@@ -326,6 +326,15 @@ can be yielded as well. This should generally be avoided
 as we should be moving towards spec-compliant `Promise`s instead.
 
 
+## Related
+* [letta-value](https://www.npmjs.com/package/letta-value): Extends `letta` to accept and handles more than functions only. Handles all kind of results from `letta`. Basically, creating promise from everything - strings, arrays, objects, functions, generators, generator functions, promises, streams, child processe | [homepage](https://github.com/hybridables/letta-value)
+* [redolent](https://www.npmjs.com/package/redolent): Simple promisify **everything** (string, array, stream, boolean, sync/async function, etc) with sane defaults. | [homepage](https://github.com/hybridables/redolent)
+* [relike](https://www.npmjs.com/package/relike): Simple promisify a callback-style function with sane defaults. Support promisify-ing sync functions. | [homepage](https://github.com/hybridables/relike)
+* [relike-all](https://www.npmjs.com/package/relike-all): Promisify all functions in an object, using `relike`. | [homepage](https://github.com/hybridables/relike-all)
+* [relike-value](https://www.npmjs.com/package/relike-value): Create promise from sync, async, string, number, array and so on. Handle completion (results) and errors gracefully! Built on top of `relike`, used by `redolent` to build robust (hybrid) APIs. | [homepage](https://github.com/hybridables/relike-value)
+* [then-callback](https://www.npmjs.com/package/then-callback): Wrap a promise to allow passing callback to `.then` of given promise, also works as normal `.then` | [homepage](https://github.com/hybridables/then-callback)
+
+
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/hybridables/letta/issues/new).  
 But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) guidelines.

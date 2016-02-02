@@ -51,5 +51,15 @@
     "thunks",
     "yield",
     "yieldables"
-  ]
+  ],
+  "metadata": {
+    "related": [
+      "relike",
+      "relike-all",
+      "relike-value",
+      "redolent",
+      "then-callback",
+      "letta-value"
+    ]
+  }
 }
