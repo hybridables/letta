@@ -46,7 +46,7 @@ var letta = module.exports = function letta (fn, args) {
       return
     }
     utils.relike.promise = letta.promise
-    utils.relike.promisify(fn).apply(self, args).then(resolve, reject)
+    utils.relike.promisify.call(self, fn).apply(self, args).then(resolve, reject)
   })
 
   return normalizePromise(promise, Promize)
