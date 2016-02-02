@@ -27,7 +27,7 @@ require = utils // eslint-disable-line no-undef, no-native-reassign
 require('co')
 require('is-es6-generator-function', 'isGenFn')
 require('native-or-another')
-require('redolent')
+require('relike')
 require('sliced')
 
 /**

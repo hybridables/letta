@@ -1,7 +1,6 @@
 # [letta][author-www-url] [![npmjs.com][npmjs-img]][npmjs-url] [![The MIT License][license-img]][license-url] 
 
-> Let's move to promises! Drop-in replacement for [`co@4`](https://github.com/tj/co), but on steroids. Accepts everything from sync, async and generator functions to string, array, stream, number and so on. Built with [redolent](https://github.com/hybridables/redolent)/[relike](https://github.com/hybridables/relike)/[relike-all](https://github.com/hybridables/relike-all) - see them for more information.  
-Passing all [`co@4` tests](./test/co). 
+> Let's move to promises! Drop-in replacement for `co@4`, but on steroids. Accepts sync, async and generator functions.
 
 [![code climate][codeclimate-img]][codeclimate-url] [![standard code style][standard-img]][standard-url] [![travis build status][travis-img]][travis-url] [![coverage status][coveralls-img]][coveralls-url] [![dependency status][david-img]][david-url]
 
@@ -20,7 +19,6 @@ npm i letta --save
 - generators and generator functions
 - accept and works with javascript internal functions like `JSON.stringify` and `JSON.parse`
 - graceful handling of errors, uncaught exceptions, rejections and optional arguments
-- tranform everything to promise
 
 
 ## Platform Compatibility
@@ -42,12 +40,14 @@ io.js is supported out of the box, you can use `letta` without flags or polyfill
 const letta = require('letta')
 ```
 
-### [letta](./index.js#L33)
+### [letta](index.js#L33)
 > Control flow now and then.
 
-- `[val]` **{Mixed}** any type of value
-- `[args...]` **{Mixed}** any number of any type of arguments, if `val` function they are passed to it
-- `return` **{Promise}**
+**Params**
+
+* `<fn>` **{Function}**: also generator function    
+* `[args..]` **{Mixed}**: any number of any type of arguments, if `fn` function they are passed to it    
+* `returns` **{Promise}**  
 
 **Example**
 
@@ -55,32 +55,42 @@ const letta = require('letta')
 const letta = require('letta')
 
 letta((foo, bar, baz) => {
-  console.log(foo, bar, baz) // => 'foo, bar, baz'
+  console.log(foo, bar, baz) //=> 'foo, bar, baz'
   return foo
 }, 'foo', 'bar', 'baz')
-.then(console.log) // => 'foo'
+.then(console.log) //=> 'foo'
 ```
 
-### [.wrap](./index.js#L75)
-> Convert a generator into a regular function that returns a `Promise`.
+### [.promisify / .wrap](index.js#L84)
+> Wraps a function and returns a function that when is invoked returns Promise. Same as `Bluebird.promisify`.
 
-- `[val]` **{Mixed}** any type of value
-- `return` **{Function}** normal function
+**Params**
+
+* `<fn>` **{Function}**: also generator function    
+* `[Prome]` **{Function}**: custom Promise constructor/module to use, e.g. `Q`    
+* `returns` **{Function}**: promisified function  
 
 **Example**
 
 ```js
 const letta = require('letta')
-const fn = letta.wrap(function * (val) {
+const fn = letta.promisify(function * (val) {
   return yield Promise.resolve(val)
 })
 
 fn(123).then(function (val) {
   console.log(val) // => 123
 }, console.error)
+
+// or `.wrap` is alias (co@4 compitability)
+const fs = require('fs')
+const readFile = letta.wrap(fs.readFile)
+readFile('./package.json')
+.then(JSON.parse).then(console.log, console.error)
 ```
 
-### [.promise](./index.js#L38)
+
+### [.promise](./index.js#L35)
 > Passing custom promise module to be used (also require) only when enviroment don't have support for native `Promise`. For example, you can pass `q` to be used when node `0.10`.
 
 **Example**

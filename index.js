@@ -25,8 +25,8 @@ var utils = require('./utils')
  * ```
  *
  * @name   letta
- * @param  {Mixed} `[val]` also generator function
- * @param  {Mixed} `[args..]` any number of any type of arguments, if `val` function they are passed to it
+ * @param  {Function} `<fn>` also generator function
+ * @param  {Mixed} `[args..]` any number of any type of arguments, if `fn` function they are passed to it
  * @return {Promise}
  * @api public
  */
@@ -45,40 +45,50 @@ var letta = module.exports = function letta (fn, args) {
       utils.co.apply(self, [fn].concat(args)).then(resolve, reject)
       return
     }
-    utils.redolent(fn).apply(self, args).then(resolve, reject)
+    utils.relike.promise = letta.promise
+    utils.relike.promisify(fn).apply(self, args).then(resolve, reject)
   })
 
   return normalizePromise(promise, Promize)
 }
 
 /**
- * > Convert a generator into a regular function that returns a `Promise`.
+ * > Wraps a function and returns a function that when is
+ * invoked returns Promise. Same as `Bluebird.promisify`.
  *
  * **Example**
  *
  * ```js
  * const letta = require('letta')
- * const fn = letta.wrap(function * (val) {
+ * const fn = letta.promisify(function * (val) {
  *   return yield Promise.resolve(val)
  * })
  *
  * fn(123).then(function (val) {
  *   console.log(val) // => 123
  * }, console.error)
+ *
+ * // or `.wrap` is alias (co@4 compitability)
+ * const fs = require('fs')
+ * const readFile = letta.wrap(fs.readFile)
+ * readFile('./package.json')
+ * .then(JSON.parse).then(console.log, console.error)
  * ```
  *
- * @name   .wrap
+ * @name   .promisify
  * @param  {Function} `<fn>` also generator function
- * @return {Function} normal function
+ * @param  {Function} `[Prome]` custom Promise constructor/module to use, e.g. `Q`
+ * @return {Function} promisified function
  * @api public
  */
-letta.wrap = function lettaWrap (fn) {
-  function createPromise () {
+letta.promisify = letta.wrap = function lettaPromisify (fn, Prome) {
+  function promisified () {
     var args = utils.sliced(arguments)
+    letta.promise = Prome || lettaPromisify.promise || promisified.promise
     return letta.apply(this, [fn].concat(args))
   }
-  createPromise.__generatorFunction__ = fn
-  return createPromise
+  promisified.__generatorFunction__ = fn
+  return promisified
 }
 
 /**

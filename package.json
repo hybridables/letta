@@ -1,11 +1,12 @@
 {
   "name": "letta",
   "version": "0.3.1",
-  "description": "Let's move to promises! Drop-in replacement for `co@4`, but on steroids. Accepts everything from sync, async and generator functions to string, array, stream, number and so on. Built with `redolent`/`relike`/relike-all` - see them for more information.",
+  "description": "Let's move to promises! Drop-in replacement for `co@4`, but on steroids. Accepts sync, async and generator functions.",
   "repository": "hybridables/letta",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
+  "precommit.silent": true,
   "main": "index.js",
-  "license": "MIT",
+  "license": "MIT", 
   "scripts": {
     "test": "standard && node test.js"
   },
@@ -14,13 +15,14 @@
     "is-es6-generator-function": "^1.0.0",
     "lazy-cache": "^1.0.3",
     "native-or-another": "^3.0.1",
-    "redolent": "^1.0.3",
+    "relike": "^1.0.3",
     "sliced": "^1.0.1"
   },
   "devDependencies": {
     "assertit": "^0.1.0",
     "mz": "^2.0.0",
     "pinkie": "^2.0.1",
+    "pre-commit": "*",
     "semver": "^5.0.3",
     "simple-get": "^1.4.3"
   },

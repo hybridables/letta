@@ -1,8 +1,4 @@
 # .editorconfig <https://github.com/tunnckoCore/dotfiles>
-#
-# Copyright (c) 2015-2016 Charlike Mike Reagent, contributors.
-# Released under the MIT license.
-#
 
 root = true
 
@@ -24,3 +20,8 @@ trim_trailing_whitespace = true
 [*.md]
 insert_final_newline = false
 trim_trailing_whitespace = false
+
+[*.py]
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true

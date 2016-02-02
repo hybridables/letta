@@ -12,6 +12,13 @@
 var test = require('assertit')
 var letta = require('../index')
 
+test('should catch TypeError thrown if not function', function (done) {
+  letta(1234).catch(function (err) {
+    test.strictEqual(/expect a function/.test(err.message), true)
+    done()
+  })
+})
+
 test('should returned error be passed to `.then` function', function (done) {
   letta(function () {
     return new Error('foo bar baz')
