@@ -6,14 +6,14 @@
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
   "precommit.silent": true,
   "main": "index.js",
-  "license": "MIT", 
+  "license": "MIT",
   "scripts": {
     "test": "standard && node test.js"
   },
   "dependencies": {
     "co": "^4.6.0",
     "is-es6-generator-function": "^1.0.0",
-    "lazy-cache": "^1.0.3",
+    "lazy-cache": "^2.0.0",
     "native-or-another": "^3.0.1",
     "relike": "^1.0.3",
     "sliced": "^1.0.1"
