@@ -24,7 +24,7 @@
     "pinkie": "^2.0.1",
     "pre-commit": "*",
     "semver": "^5.0.3",
-    "simple-get": "^1.4.3"
+    "simple-get": "^2.1.0"
   },
   "files": [
     "index.js",
