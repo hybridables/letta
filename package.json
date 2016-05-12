@@ -1,7 +1,7 @@
 {
   "name": "letta",
   "version": "0.4.0",
-  "description": "Let's move to promises! Drop-in replacement for `co@4` (passing 100% tests), but on steroids. Accepts sync, async and generator functions.",
+  "description": "Promisify sync, async or generator function, using [relike][]. Kind of promisify, but lower level. Almost fully compatible with co@4 - v0.4.x was passing 100% of its tests.",
   "repository": "hybridables/letta",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
   "precommit.silent": true,
@@ -52,14 +52,25 @@
     "yield",
     "yieldables"
   ],
-  "metadata": {
-    "related": [
+  "verb": {
+    "run": true,
+    "toc": false,
+    "layout": "empty",
+    "tasks": [
+      "readme"
+    ],
+    "lint": {
+      "reflinks": true
+    },
+    "reflinks": [
       "relike",
       "relike-all",
       "relike-value",
-      "redolent",
-      "then-callback",
-      "letta-value"
+      "letta-value",
+      "co",
+      "bluebird",
+      "is-async-function",
+      "common-callback-names"
     ]
   }
 }

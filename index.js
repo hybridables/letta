@@ -10,7 +10,7 @@
 var utils = require('./utils')
 
 /**
- * > Control flow now and then.
+ * > Control flow for now and then.
  *
  * **Example**
  *
@@ -18,18 +18,19 @@ var utils = require('./utils')
  * const letta = require('letta')
  *
  * letta((foo, bar, baz) => {
- *   console.log(foo, bar, baz) //=> 'foo, bar, baz'
+ *   console.log(foo, bar, baz) // => 'foo bar baz'
  *   return foo
  * }, 'foo', 'bar', 'baz')
- * .then(console.log) //=> 'foo'
+ * .then(console.log) // => 'foo'
  * ```
  *
  * @name   letta
- * @param  {Function} `<fn>` also generator function
- * @param  {Mixed} `[args..]` any number of any type of arguments, if `fn` function they are passed to it
- * @return {Promise}
+ * @param  {Function} `<fn>` Regular function (including arrow function) or generator function.
+ * @param  {Mixed} `[...args]` Any number of any type of arguments, they are passed to `fn`.
+ * @return {Promise} Always native Promise if supported on enviroment.
  * @api public
  */
+
 var letta = module.exports = function letta (fn, args) {
   var self = this
   var Promize = utils.nativeOrAnother(letta.promise)
@@ -53,38 +54,59 @@ var letta = module.exports = function letta (fn, args) {
 }
 
 /**
- * > Wraps a function and returns a function that when is
- * invoked returns Promise. Same as `Bluebird.promisify`.
+ * > Returns a function that will wrap the given `fn`.
+ * Instead of taking a callback, the returned function will
+ * return a promise whose fate is decided by the callback
+ * behavior of the given `fn` node function. The node function
+ * should conform to node.js convention of accepting a callback
+ * as last argument and calling that callback with error as the
+ * first argument and success value on the second argument.
+ * – [Bluebird Docs on `.promisify`](http://bluebirdjs.com/docs/api/promise.promisify.html)
  *
  * **Example**
  *
  * ```js
+ * const fs = require('fs')
  * const letta = require('letta')
- * const fn = letta.promisify(function * (val) {
- *   return yield Promise.resolve(val)
+ * const readFile = letta.promisify(fs.readFile)
+ *
+ * readFile('package.json', 'utf8')
+ *   .then(JSON.parse)
+ *   .then(value => {
+ *     console.log(value.name) // => 'letta'
+ *   })
+ *   .catch(SyntaxError, err => {
+ *     console.error('File had syntax error', err)
+ *   })
+ *   // Catch any other error
+ *   .catch(err => {
+ *     console.error(err.stack)
+ *   })
+ *
+ * // or promisify generator function
+ * const promise = letta(function * () {
+ *   let result = yield Promise.resolve(123)
+ *   return result
  * })
  *
- * fn(123).then(function (val) {
- *   console.log(val) // => 123
- * }, console.error)
- *
- * // or `.wrap` is alias (co@4 compitability)
- * const fs = require('fs')
- * const readFile = letta.wrap(fs.readFile)
- * readFile('./package.json')
- * .then(JSON.parse).then(console.log, console.error)
+ * promise.then(value => {
+ *   console.log(value) // => 123
+ * }, err => {
+ *   console.error(err.stack)
+ * })
  * ```
  *
  * @name   .promisify
- * @param  {Function} `<fn>` also generator function
- * @param  {Function} `[Prome]` custom Promise constructor/module to use, e.g. `Q`
- * @return {Function} promisified function
+ * @param  {Function} `<fn>` Regular function (including arrow function) or generator function.
+ * @param  {Function} `[Promize]` Promise constructor to be used on enviroment where no support for native.
+ * @return {Function} Promisified function, which always return a Promise when called.
  * @api public
  */
-letta.promisify = letta.wrap = function lettaPromisify (fn, Prome) {
+
+letta.promisify = letta.wrap = function lettaPromisify (fn, Promize) {
   function promisified () {
     var args = utils.sliced(arguments)
-    letta.promise = Prome || lettaPromisify.promise || promisified.promise
+    letta.promise = Promize || lettaPromisify.promise || promisified.promise
     return letta.apply(this, [fn].concat(args))
   }
   promisified.__generatorFunction__ = fn
