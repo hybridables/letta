@@ -53,24 +53,37 @@
     "yieldables"
   ],
   "verb": {
-    "run": true,
-    "toc": true,
-    "layout": "empty",
-    "tasks": [
-      "readme"
-    ],
-    "lint": {
-      "reflinks": true
-    },
     "reflinks": [
+      "bluebird",
+      "co",
+      "common-callback-names",
+      "is-async-function",
+      "letta-value",
       "relike",
       "relike-all",
       "relike-value",
-      "letta-value",
-      "co",
-      "bluebird",
-      "is-async-function",
-      "common-callback-names"
-    ]
+      "through2"
+    ],
+    "run": true,
+    "toc": true,
+    "layout": "empty",
+    "lint": {
+      "reflinks": true
+    },
+    "tasks": [
+      "readme"
+    ],
+    "related": {
+      "list": [
+        "callback2stream",
+        "letta-value",
+        "mukla",
+        "promise2stream",
+        "relike",
+        "relike-all",
+        "relike-value",
+        "value2stream"
+      ]
+    }
   }
 }

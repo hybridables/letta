@@ -21,7 +21,7 @@ You might also be interested in [relike][], [relike-all][], [relike-value][] and
   * [JSON.stringify](#jsonstringify)
   * [Synchronous functions](#synchronous-functions)
   * [Exceptions and rejections](#exceptions-and-rejections)
-  * [Error handling](#error-handling)
+  * [Returning errors](#returning-errors)
   * [Passing function as last argument](#passing-function-as-last-argument)
 - [Related](#related)
 - [Contributing](#contributing)
@@ -236,13 +236,13 @@ console.log(promise.___customPromise) // => `true` when pass `.Promise`, falsey 
 ## Examples
 > Few working examples with what can be passed and how `letta` acts.
 
-+ [Callback functions](#callback-functions)
-+ [Generator functions](#generator-functions)
-+ [JSON.stringify](#jsonstringify)
-+ [Synchronous functions](#synchronous-functions)
-+ [Exceptions and rejections](#exceptions-and-rejections)
-+ [Error handling](#error-handling)
-+ [Passing function as last argument](#passing-function-as-last-argument)
+- [Callback functions](#callback-functions)
+- [Generator functions](#generator-functions)
+- [JSON.stringify](#jsonstringify)
+- [Synchronous functions](#synchronous-functions)
+- [Exceptions and rejections](#exceptions-and-rejections)
+- [Returning errors](#returning-errors)
+- [Passing function as last argument](#passing-function-as-last-argument)
 
 ### Callback functions
 > Can accept asynchronous (callback) functions as well.
@@ -362,7 +362,7 @@ promise.catch(err => {
 })
 ```
 
-### Error handling
+### Returning errors
 > You should **notice** that if some function **returns** instance of `Error` it will acts as usual - receive it in `.then` not in `.catch`. Review the `examples/errors.js` example.
 
 **Example**
@@ -406,6 +406,16 @@ letta(regular, 'foo', 123, {a: 'b'}, function someFn () {})
   })
 ```
 
+## Related
+* [callback2stream](https://www.npmjs.com/package/callback2stream): Transform sync, async or generator function to Stream. Correctly handle errors. [homepage](https://github.com/hybridables/callback2stream)
+* [letta-value](https://www.npmjs.com/package/letta-value): Extends `letta` to accept and handles more than functions only. Handles all… [more](https://www.npmjs.com/package/letta-value) | [homepage](https://github.com/hybridables/letta-value)
+* [mukla](https://www.npmjs.com/package/mukla): Simple and fast test runner with basic reporter and clean stacktraces. Support… [more](https://www.npmjs.com/package/mukla) | [homepage](https://github.com/tunnckocore/mukla)
+* [promise2stream](https://www.npmjs.com/package/promise2stream): Transform ES2015 Promise to Stream - specifically, Transform Stream using… [more](https://www.npmjs.com/package/promise2stream) | [homepage](https://github.com/hybridables/promise2stream)
+* [relike-all](https://www.npmjs.com/package/relike-all): Promisify all functions in an object, using `relike`. | [homepage](https://github.com/hybridables/relike-all)
+* [relike-value](https://www.npmjs.com/package/relike-value): Create promise from sync, async, string, number, array and so on. Handle… [more](https://www.npmjs.com/package/relike-value) | [homepage](https://github.com/hybridables/relike-value)
+* [relike](https://www.npmjs.com/package/relike): Simple promisify async or sync function with sane defaults. Lower level than… [more](https://www.npmjs.com/package/relike) | [homepage](https://github.com/hybridables/relike)
+* [value2stream](https://www.npmjs.com/package/value2stream): Transform any value to stream. Create a stream from any value -… [more](https://www.npmjs.com/package/value2stream) | [homepage](https://github.com/hybridables/value2stream)
+
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/hybridables/letta/issues/new).
 But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) guidelines.
@@ -414,6 +424,7 @@ But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) 
 
 [![tunnckoCore.tk][author-www-img]][author-www-url] [![keybase tunnckoCore][keybase-img]][keybase-url] [![tunnckoCore npm][author-npm-img]][author-npm-url] [![tunnckoCore twitter][author-twitter-img]][author-twitter-url] [![tunnckoCore github][author-github-img]][author-github-url]
 
+[through2]: https://github.com/rvagg/through2
 [bluebird]: https://github.com/petkaantonov/bluebird
 [co]: https://github.com/tj/co
 [common-callback-names]: https://github.com/tunnckocore/common-callback-names
