@@ -10,7 +10,7 @@
 'use strict'
 
 var mzfs = require('mz/fs')
-var test = require('assertit')
+var test = require('mukla')
 var letta = require('../index')
 
 function * success () {
@@ -22,18 +22,16 @@ function * failure () {
 }
 
 test('should handle successful generator function', function (done) {
-  letta(success).then(function (res) {
+  return letta(success).then(function (res) {
     test.strictEqual(typeof res, 'string')
     test.ok(res.indexOf('"license": "MIT"') !== -1)
-    done()
-  }, done)
+  })
 })
 
 test('should handle generator function errors', function (done) {
-  letta(failure).catch(function (err) {
+  return letta(failure).catch(function (err) {
     test.ifError(!err)
     test.ok(err instanceof Error)
     test.strictEqual(err.code, 'ENOENT')
-    done()
   })
 })

@@ -19,7 +19,7 @@
     "sliced": "^1.0.1"
   },
   "devDependencies": {
-    "assertit": "^0.1.0",
+    "mukla": "^0.4.1",
     "mz": "^2.4.0",
     "pinkie": "^2.0.4",
     "pre-commit": "*",

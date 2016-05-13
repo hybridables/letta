@@ -1,9 +1,7 @@
 'use strict'
-var test = require('assertit')
-var assert = require('assert')
+
+var test = require('mukla')
 var co = require('../../index')
-var describe = test.describe
-var it = test.it
 
 function sleep (ms) {
   return function (done) {
@@ -16,34 +14,30 @@ function * work () {
   return 'yay'
 }
 
-describe('co(fn*)', function () {
-  describe('with a generator function', function () {
-    it('should wrap with co()', function () {
-      return co(function * () {
-        var a = yield work
-        var b = yield work
-        var c = yield work
+test('co(fn*) with a generator function: should wrap with co()', function () {
+  return co(function * () {
+    var a = yield work
+    var b = yield work
+    var c = yield work
 
-        assert.strictEqual(a, 'yay')
-        assert.strictEqual(b, 'yay')
-        assert.strictEqual(c, 'yay')
+    test.strictEqual(a, 'yay')
+    test.strictEqual(b, 'yay')
+    test.strictEqual(c, 'yay')
 
-        var res = yield [work, work, work]
-        assert.deepEqual(res, ['yay', 'yay', 'yay'])
-      })
-    })
+    var res = yield [work, work, work]
+    test.deepEqual(res, ['yay', 'yay', 'yay'])
+  })
+})
 
-    it('should catch errors', function () {
-      return co(function * () {
-        yield function * () {
-          throw new Error('boom')
-        }
-      }).then(function () {
-        throw new Error('wtf')
-      }, function (err) {
-        assert.ifError(!err)
-        assert.strictEqual(err.message, 'boom')
-      })
-    })
+test('co(fn*) with a generator function: should catch errors', function () {
+  return co(function * () {
+    yield function * () {
+      throw new Error('boom')
+    }
+  }).then(function () {
+    throw new Error('wtf')
+  }, function (err) {
+    test.ifError(!err)
+    test.strictEqual(err.message, 'boom')
   })
 })

@@ -9,36 +9,26 @@
 
 'use strict'
 
-var test = require('assertit')
 var semver = require('semver')
 
-test('errors', function (done) {
-  require('./test/errors')
-  done()
-})
+// errors
+require('./test/errors')
 
-test('callbacks', function (done) {
-  require('./test/callbacks')
-  done()
-})
+// callback functions
+require('./test/callbacks')
 
-test('sync functions', function (done) {
-  require('./test/sync')
-  done()
-})
+// sync functions
+require('./test/sync')
 
 if (semver.gte(process.version, '0.11.13')) {
-  test('generators', function (done) {
-    require('./test/generators')
-    done()
-  })
-  test('co tests', function (done) {
-    var fs = require('fs')
-    var path = require('path')
-    var dir = path.join(__dirname, 'test', 'co')
-    fs.readdirSync(dir).forEach(function (filename) {
-      require(path.join(dir, filename))
-    })
-    done()
+  // generators
+  require('./test/generators')
+
+  // co tests
+  var fs = require('fs')
+  var path = require('path')
+  var dir = path.join(__dirname, 'test', 'co')
+  fs.readdirSync(dir).forEach(function (filename) {
+    require(path.join(dir, filename))
   })
 }

@@ -1,30 +1,26 @@
 'use strict'
-var test = require('assertit')
-var assert = require('assert')
+
+var test = require('mukla')
 var co = require('../../index')
-var describe = test.describe
-var it = test.it
 
-describe('co.wrap(fn*)', function () {
-  it('should pass context', function () {
-    var ctx = {
-      some: 'thing'
-    }
+test('co.wrap(fn*): should pass context', function () {
+  var ctx = {
+    some: 'thing'
+  }
 
-    return co.wrap(function * () {
-      assert.deepEqual(ctx, this)
-    }).call(ctx)
-  })
+  return co.wrap(function * () {
+    test.deepEqual(ctx, this)
+  }).call(ctx)
+})
 
-  it('should pass arguments', function () {
-    return co.wrap(function * (a, b, c) {
-      assert.deepEqual([a, b, c], [1, 2, 3])
-    })(1, 2, 3)
-  })
+test('co.wrap(fn*): should pass arguments', function () {
+  return co.wrap(function * (a, b, c) {
+    test.deepEqual([a, b, c], [1, 2, 3])
+  })(1, 2, 3)
+})
 
-  it('should expose the underlying generator function', function () {
-    var wrapped = co.wrap(function * (a, b, c) {})
-    var source = Object.toString.call(wrapped.__generatorFunction__)
-    assert.strictEqual(source.indexOf('function*'), 0)
-  })
+test('co.wrap(fn*): should expose the underlying generator function', function () {
+  var wrapped = co.wrap(function * (a, b, c) {})
+  var source = Object.toString.call(wrapped.__generatorFunction__)
+  test.strictEqual(source.indexOf('function*'), 0)
 })

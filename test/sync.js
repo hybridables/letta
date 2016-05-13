@@ -10,7 +10,7 @@
 'use strict'
 
 var fs = require('fs')
-var test = require('assertit')
+var test = require('mukla')
 var letta = require('../index')
 
 function successJsonParse () {
@@ -38,46 +38,40 @@ function failReadFile () {
 }
 
 test('should handle result when JSON.parse pass', function (done) {
-  letta(successJsonParse).then(function (res) {
+  return letta(successJsonParse).then(function (res) {
     test.deepEqual(res, {foo: 'bar'})
-    done()
-  }, done)
+  })
 })
 
 test('should handle error when JSON.parse fail', function (done) {
-  letta(returnFailingJsonParse).catch(function (err) {
+  return letta(returnFailingJsonParse).catch(function (err) {
     test.ifError(!err)
     test.ok(err instanceof Error)
-    done()
   })
 })
 
 test('should handle result when fs.readFileSync pass', function (done) {
-  letta(successReadFile).then(function (res) {
+  return letta(successReadFile).then(function (res) {
     test.ok(res.indexOf('"license": "MIT"') !== -1)
-    done()
-  }, done)
+  })
 })
 
 test('should handle error when fs.readFileSync fail', function (done) {
-  letta(failReadFile).catch(function (err) {
+  return letta(failReadFile).catch(function (err) {
     test.ifError(!err)
     test.ok(err instanceof Error)
-    done()
   })
 })
 
 test('should handle thrown errors', function (done) {
-  letta(noReturnFailJsonParse).catch(function (err) {
+  return letta(noReturnFailJsonParse).catch(function (err) {
     test.ifError(!err)
     test.ok(err instanceof Error)
-    done()
   })
 })
 
 test('should pass whole returned array to single argument', function (done) {
-  letta(returnArray).then(function (arr) {
+  return letta(returnArray).then(function (arr) {
     test.deepEqual(arr, [4, 5, 6])
-    done()
   })
 })
