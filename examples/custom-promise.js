@@ -15,7 +15,7 @@ var promise = letta(fs.readFile, 'package.json', 'utf8')
 
 promise.then(JSON.parse).then(function (data) {
   console.log(data.name) // => 'letta'
-  console.log(promise.Prome) // => `pinkie` promise constructor
+  console.log(promise.Promise) // => `pinkie` promise constructor
 
   // shows that custom promise module is used
   console.log(promise.___customPromise)// => true, otherwise `undefined`

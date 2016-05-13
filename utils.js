@@ -36,6 +36,13 @@ require('sliced')
 
 require = fn // eslint-disable-line no-undef, no-native-reassign
 
+utils.normalizePromise = function normalizePromise (promise, Promize) {
+  promise.Promise = Promize
+  promise.___customPromise = promise.Promise.___customPromise
+  promise.___bluebirdPromise = promise.Promise.___bluebirdPromise
+  return promise
+}
+
 /**
  * Expose `utils` modules
  */

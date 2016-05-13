@@ -33,7 +33,7 @@ var utils = require('./utils')
 
 var letta = module.exports = function letta (fn, args) {
   var self = this
-  var Promize = utils.nativeOrAnother(letta.promise)
+  var Promize = utils.nativeOrAnother(letta.Promise)
   args = utils.sliced(arguments, 1)
 
   var promise = new Promize(function (resolve, reject) {
@@ -46,11 +46,11 @@ var letta = module.exports = function letta (fn, args) {
       utils.co.apply(self, [fn].concat(args)).then(resolve, reject)
       return
     }
-    utils.relike.promise = letta.promise
-    utils.relike.promisify.call(self, fn).apply(self, args).then(resolve, reject)
+    utils.relike.Promise = letta.Promise
+    utils.relike.apply(self, [fn].concat(args)).then(resolve, reject)
   })
 
-  return normalizePromise(promise, Promize)
+  return utils.normalizePromise(promise, Promize)
 }
 
 /**
@@ -104,22 +104,11 @@ var letta = module.exports = function letta (fn, args) {
  */
 
 letta.promisify = letta.wrap = function lettaPromisify (fn, Promize) {
+  var self = this
   function promisified () {
-    var args = utils.sliced(arguments)
-    letta.promise = Promize || lettaPromisify.promise || promisified.promise
-    return letta.apply(this, [fn].concat(args))
+    letta.Promise = Promize || lettaPromisify.Promise || promisified.Promise
+    return letta.apply(this || self, [fn].concat(utils.sliced(arguments)))
   }
   promisified.__generatorFunction__ = fn
   return promisified
-}
-
-/**
- * Inherit and normalize properties
- */
-
-function normalizePromise (promise, Ctor) {
-  promise.Prome = Ctor
-  promise.___customPromise = Ctor.___customPromise
-  promise.___bluebirdPromise = Ctor.___bluebirdPromise
-  return promise
 }

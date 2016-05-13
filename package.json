@@ -13,17 +13,17 @@
   "dependencies": {
     "co": "^4.6.0",
     "is-es6-generator-function": "^1.0.0",
-    "lazy-cache": "^2.0.0",
-    "native-or-another": "^3.0.1",
-    "relike": "^1.0.3",
+    "lazy-cache": "^2.0.1",
+    "native-or-another": "^3.0.2",
+    "relike": "^1.1.1",
     "sliced": "^1.0.1"
   },
   "devDependencies": {
     "assertit": "^0.1.0",
-    "mz": "^2.0.0",
-    "pinkie": "^2.0.1",
+    "mz": "^2.4.0",
+    "pinkie": "^2.0.4",
     "pre-commit": "*",
-    "semver": "^5.0.3",
+    "semver": "^5.1.0",
     "simple-get": "^2.1.0"
   },
   "files": [
