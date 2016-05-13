@@ -1,7 +1,7 @@
 {
   "name": "letta",
   "version": "0.4.0",
-  "description": "Promisify sync, async or generator function, using [relike][]. Kind of promisify, but lower level. Almost fully compatible with co@4 - v0.4.x was passing 100% of its tests.",
+  "description": "Promisify sync, async or generator function, using [relike][]. Kind of promisify, but lower level. Full compatibility with [co][]4 and passing 100% of its tests.",
   "repository": "hybridables/letta",
   "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
   "precommit.silent": true,
