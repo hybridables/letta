@@ -12,13 +12,13 @@
 var test = require('mukla')
 var letta = require('../index')
 
-test('should catch TypeError thrown if not function', function (done) {
+test('should catch TypeError thrown if not function', function () {
   return letta(1234).catch(function (err) {
     test.strictEqual(/expect `fn` be function/.test(err.message), true)
   })
 })
 
-test('should returned error be passed to `.then` function', function (done) {
+test('should returned error be passed to `.then` function', function () {
   return letta(function () {
     return new Error('foo bar baz')
   }).then(function (res) {
@@ -28,7 +28,7 @@ test('should returned error be passed to `.then` function', function (done) {
   })
 })
 
-test('should mute all errors and pass them to `.catch` function', function (done) {
+test('should mute all errors and pass them to `.catch` function', function () {
   return letta(function () {
     foobar // eslint-disable-line no-undef
     return 123

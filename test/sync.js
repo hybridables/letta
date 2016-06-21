@@ -37,40 +37,40 @@ function failReadFile () {
   return fs.readFileSync('foo-bar')
 }
 
-test('should handle result when JSON.parse pass', function (done) {
+test('should handle result when JSON.parse pass', function () {
   return letta(successJsonParse).then(function (res) {
     test.deepEqual(res, {foo: 'bar'})
   })
 })
 
-test('should handle error when JSON.parse fail', function (done) {
+test('should handle error when JSON.parse fail', function () {
   return letta(returnFailingJsonParse).catch(function (err) {
     test.ifError(!err)
     test.ok(err instanceof Error)
   })
 })
 
-test('should handle result when fs.readFileSync pass', function (done) {
+test('should handle result when fs.readFileSync pass', function () {
   return letta(successReadFile).then(function (res) {
     test.ok(res.indexOf('"license": "MIT"') !== -1)
   })
 })
 
-test('should handle error when fs.readFileSync fail', function (done) {
+test('should handle error when fs.readFileSync fail', function () {
   return letta(failReadFile).catch(function (err) {
     test.ifError(!err)
     test.ok(err instanceof Error)
   })
 })
 
-test('should handle thrown errors', function (done) {
+test('should handle thrown errors', function () {
   return letta(noReturnFailJsonParse).catch(function (err) {
     test.ifError(!err)
     test.ok(err instanceof Error)
   })
 })
 
-test('should pass whole returned array to single argument', function (done) {
+test('should pass whole returned array to single argument', function () {
   return letta(returnArray).then(function (arr) {
     test.deepEqual(arr, [4, 5, 6])
   })

@@ -21,14 +21,14 @@ function * failure () {
   return yield mzfs.readFile('foobar.json')
 }
 
-test('should handle successful generator function', function (done) {
+test('should handle successful generator function', function () {
   return letta(success).then(function (res) {
     test.strictEqual(typeof res, 'string')
     test.ok(res.indexOf('"license": "MIT"') !== -1)
   })
 })
 
-test('should handle generator function errors', function (done) {
+test('should handle generator function errors', function () {
   return letta(failure).catch(function (err) {
     test.ifError(!err)
     test.ok(err instanceof Error)
