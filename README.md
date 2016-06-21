@@ -108,7 +108,7 @@ npm i letta --save
 ```
 
 ## Usage
-> For more use-cases see the [tests](./test.js), [examples](./examples) or the passing [`co@4` tests](./test/co)
+> For more use-cases see the [tests](./test.js), [examples](./examples) or all the passing [`co@4` tests](./test/co)
 
 ```js
 const fs = require('fs')
@@ -126,7 +126,7 @@ promise.then(value => {
 })
 ```
 
-If you want to convert generator function to regular function that returns a Promise use `letta.promisify`
+If you want to convert generator function to regular function that returns a Promise use [letta.promisify](#promisify)
 
 **Example**
 
@@ -143,7 +143,7 @@ fn(456).then(number => {
 })
 ```
 
-If you want to promisify **any** type of function, again, just use the `.promisify` method, like you do with [bluebird][].promisify.
+If you want to promisify **any** type of function, again, just use the [.promisify](#promisify) method, like you do with [bluebird][].promisify.
 
 ```js
 const fs = require('fs')
@@ -285,13 +285,13 @@ console.log(promise.___customPromise) // => `true` when pass `.Promise`, falsey 
 ## Examples
 > Few working examples with what can be passed and how `letta` acts.
 
-- [Callback functions](#callback-functions)
-- [Generator functions](#generator-functions)
-- [JSON.stringify](#jsonstringify)
-- [Synchronous functions](#synchronous-functions)
-- [Exceptions and rejections](#exceptions-and-rejections)
-- [Returning errors](#returning-errors)
-- [Passing function as last argument](#passing-function-as-last-argument)
+* [Callback functions](#callback-functions)
+* [Generator functions](#generator-functions)
+* [JSON.stringify](#jsonstringify)
+* [Synchronous functions](#synchronous-functions)
+* [Exceptions and rejections](#exceptions-and-rejections)
+* [Returning errors](#returning-errors)
+* [Passing function as last argument](#passing-function-as-last-argument)
 
 ### Callback functions
 > Can accept asynchronous (callback) functions as well.
@@ -455,6 +455,7 @@ letta(regular, 'foo', 123, {a: 'b'}, function someFn () {})
   })
 ```
 
+
 ## Related
 * [callback2stream](https://www.npmjs.com/package/callback2stream): Transform sync, async or generator function to Stream. Correctly handle errors. [homepage](https://github.com/hybridables/callback2stream)
 * [letta-value](https://www.npmjs.com/package/letta-value): Extends `letta` to accept and handles more than functions only. Handles all… [more](https://www.npmjs.com/package/letta-value) | [homepage](https://github.com/hybridables/letta-value)
@@ -473,6 +474,7 @@ But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) 
 
 [![tunnckoCore.tk][author-www-img]][author-www-url] [![keybase tunnckoCore][keybase-img]][keybase-url] [![tunnckoCore npm][author-npm-img]][author-npm-url] [![tunnckoCore twitter][author-twitter-img]][author-twitter-url] [![tunnckoCore github][author-github-img]][author-github-url]
 
+[async-done]: https://github.com/gulpjs/async-done
 [bluebird]: https://github.com/petkaantonov/bluebird
 [co]: https://github.com/tj/co
 [common-callback-names]: https://github.com/tunnckocore/common-callback-names
@@ -527,3 +529,4 @@ But before doing anything, please read the [CONTRIBUTING.md](./CONTRIBUTING.md) 
 
 [new-message-url]: https://github.com/tunnckoCore/ama
 [new-message-img]: https://img.shields.io/badge/ask%20me-anything-green.svg
+

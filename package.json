@@ -103,7 +103,8 @@
       "relike",
       "relike-all",
       "relike-value",
-      "through2"
+      "through2",
+      "async-done"
     ],
     "run": true,
     "toc": true,
