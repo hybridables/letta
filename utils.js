@@ -18,7 +18,7 @@ var utils = require('lazy-cache')(require)
  */
 
 var fn = require
-require = utils // eslint-disable-line no-undef, no-native-reassign
+require = utils // eslint-disable-line no-undef, no-native-reassign, no-global-assign
 
 /**
  * Lazily required module dependencies
@@ -34,7 +34,7 @@ require('sliced')
  * Restore `require`
  */
 
-require = fn // eslint-disable-line no-undef, no-native-reassign
+require = fn // eslint-disable-line no-undef, no-native-reassign, no-global-assign
 
 utils.normalizePromise = function normalizePromise (promise, Promize) {
   promise.Promise = Promize

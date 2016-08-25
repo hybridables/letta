@@ -37,11 +37,6 @@ var letta = module.exports = function letta (fn, args) {
   args = utils.sliced(arguments, 1)
 
   var promise = new Promize(function (resolve, reject) {
-    process.once('uncaughtException', reject)
-    process.once('unhandledRejection', reject)
-    process.on('newListener', function (name) {
-      this.removeAllListeners(name)
-    })
     if (utils.isGenFn(fn)) {
       utils.co.apply(self, [fn].concat(args)).then(resolve, reject)
       return
