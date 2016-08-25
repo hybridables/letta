@@ -16,7 +16,7 @@ var letta = require('../index')
  */
 
 letta(fs.readFile, 'foobar.json').catch(function (err) {
-  console.error(err.code) // => 'ENOENT'
+  console.error('ERR1:', err.code) // => 'ERR1: ENOENT'
 })
 
 /**
@@ -26,4 +26,7 @@ letta(fs.readFile, 'foobar.json').catch(function (err) {
 letta(function () {
   foo // eslint-disable-line no-undef
   return true
-}).catch(console.error) // => 'ReferenceError: foo is not defined'
+}).catch(function (err) {
+  console.error('ERR2:', err.name) // => 'ERR2: ReferenceError'
+  console.error('ERR2:', err.message) // => 'ERR2: foo is not defined'
+})
