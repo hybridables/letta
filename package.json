@@ -14,7 +14,7 @@
     "co": "^4.6.0",
     "is-es6-generator-function": "^1.0.0",
     "lazy-cache": "^2.0.1",
-    "native-or-another": "^4.0.0",
+    "native-or-another": "^5.0.1",
     "relike": "^1.1.1",
     "sliced": "^1.0.1"
   },
